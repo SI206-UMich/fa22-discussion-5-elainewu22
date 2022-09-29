@@ -3,7 +3,7 @@ import unittest
 # Counts the number of a's in a sentence (e.g., a string)
 def count_a(sentence):
 	total = 0
-	for i in sentence - 1:
+	for i in sentence :
 		if i == 'a':
 			total += 1
 	return total
@@ -39,19 +39,22 @@ class Warehouse:
 	# Adds an item to the warehouse	
 	def add_item(self, item):
 		self.items.append(item)
-		print(item)
-
-		pass
 
 	# Returns the item in the warehouse with the most stock		
 	def get_max_stock(self):
-		return
-
-		pass
+		max = 0 
+		for item in self.items:
+			if item.stock > max:
+				max = item.stock
+		return max
 	
 	# Returns the item in the warehouse with the highest price
 	def get_max_price(self):
-		pass	
+		max = 0 
+		for pri in self.items:
+			if pri.price > max:
+				max = pri.price
+		return max
 
 
 
@@ -68,26 +71,35 @@ class TestAllMethods(unittest.TestCase):
 
 	## Check to see whether count_a works
 	def test_count_a(self):
-		self.assertEqual(count_a("this is a sentence"), "1", "count_a(a)")
-
-
-
-		pass
+		self.assertEqual(count_a("this is a sentence"), 2, "count_a(a)")
+		self.assertEqual(count_a("this is a cat, dog, not a bear"), 4, "count_a(a)")
+		self.assertEqual(count_a("its heartbreaking, hard, and breaking"), 5, "count_a(a)")
 
 
 	## Check to see whether you can add an item to the warehouse
 	def test_add_item(self):
+		w = Warehouse()
+		w.add_item(self.item1)
+		w.add_item(self.item2)
+		self.assertEqual(len(w.items), 1, "expecting 1")
+		self.assertEqual(len(w.items), 2, "expecting 2")
 
-		pass
+
 
 
 	## Check to see whether warehouse correctly returns the item with the most stock
 	def test_warehouse_max_stocks(self):
+		w = Warehouse()
+		w.add_item(self.item1)
+		self.assertEqual(w.get_max_stock(), 20, "expecting 1")
 		pass
 
 
 	# Check to see whether the warehouse correctly return the item with the highest price
 	def test_warehouse_max_price(self):
+		w = Warehouse()
+		w.add_item(self.item2)
+		self.assertEqual(w.get_max_price(), 5, "wants 8")
 		pass
 		
 
